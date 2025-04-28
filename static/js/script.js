@@ -5,28 +5,86 @@ document.addEventListener('DOMContentLoaded', function() {
         section.classList.add('fade-in');
     });
     
+    // Функциональность видео
+    const videoContainer = document.querySelector('.video-container');
+    const watchBtn = document.querySelector('.watch-btn');
+    
+    if (videoContainer && watchBtn) {
+        // Добавляем оверлей для видео
+        const overlay = document.createElement('div');
+        overlay.classList.add('video-overlay');
+        videoContainer.prepend(overlay);
+        
+        // Функция для запуска видео
+        function playVideo() {
+            // В реальном проекте здесь будет код для запуска видео
+            // Для демонстрации просто меняем стиль и текст
+            const placeholderVideo = document.querySelector('.placeholder-video');
+            placeholderVideo.innerHTML = '<p>Видео воспроизводится...</p>';
+            placeholderVideo.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            placeholderVideo.style.padding = '20px';
+            placeholderVideo.style.color = 'white';
+            
+            // Удаляем оверлей
+            overlay.remove();
+        }
+        
+        // Запуск видео по клику на контейнер или кнопку
+        videoContainer.addEventListener('click', function(e) {
+            // Проверяем, что клик был не на кнопке (чтобы избежать двойного срабатывания)
+            if (e.target !== watchBtn && !watchBtn.contains(e.target)) {
+                playVideo();
+            }
+        });
+        
+        watchBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Предотвращаем всплытие события
+            playVideo();
+        });
+    }
+    
     // Функциональность слайдера продуктов
     const productsContainer = document.querySelector('.products-container');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
     const productCards = document.querySelectorAll('.product-card');
     
-    if (leftArrow && rightArrow && productsContainer) {
-        // Расчет ширины для прокрутки
+    if (leftArrow && rightArrow && productsContainer && productCards.length > 0) {
+        // Расчет ширины для прокрутки (показываем по 3 карточки)
         const cardWidth = productCards[0].offsetWidth + 20; // Ширина карточки + отступ
+        const visibleCards = 3; // Количество видимых карточек
+        let currentIndex = 0;
+        const maxIndex = productCards.length - visibleCards;
+        
+        // Функция для обновления видимости стрелок
+        function updateArrowsVisibility() {
+            leftArrow.style.visibility = currentIndex <= 0 ? 'hidden' : 'visible';
+            rightArrow.style.visibility = currentIndex >= maxIndex ? 'hidden' : 'visible';
+        }
+        
+        // Инициализация видимости стрелок
+        updateArrowsVisibility();
         
         leftArrow.addEventListener('click', () => {
-            productsContainer.scrollBy({
-                left: -cardWidth,
-                behavior: 'smooth'
-            });
+            if (currentIndex > 0) {
+                currentIndex--;
+                productsContainer.scrollTo({
+                    left: cardWidth * currentIndex,
+                    behavior: 'smooth'
+                });
+                updateArrowsVisibility();
+            }
         });
         
         rightArrow.addEventListener('click', () => {
-            productsContainer.scrollBy({
-                left: cardWidth,
-                behavior: 'smooth'
-            });
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                productsContainer.scrollTo({
+                    left: cardWidth * currentIndex,
+                    behavior: 'smooth'
+                });
+                updateArrowsVisibility();
+            }
         });
     }
     
@@ -35,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation(); // Предотвращаем всплытие события
             
             // Получаем информацию о товаре
             const productCard = this.closest('.product-card');
@@ -112,30 +171,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Подготовка для будущей интеграции с Python
-    // Функция для получения данных с сервера
-    async function fetchDataFromServer(endpoint) {
-        try {
-            const response = await fetch(endpoint);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Ошибка при получении данных:', error);
-            return null;
-        }
-    }
-    
-    // Пример использования (закомментирован для будущего использования)
-    /*
-    fetchDataFromServer('/api/products')
-        .then(data => {
-            if (data) {
-                // Обработка полученных данных
-                console.log('Получены данные о продуктах:', data);
-            }
-        });
-    */
 });
