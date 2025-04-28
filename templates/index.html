@@ -3,16 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hjemmeside</title>
+    <title>EcoTrend - Sustainable Fashion</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Arial+Rounded+MT+Bold&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="box1">
-            <img src="../static/images/logo.png" alt="">
+        <div class="logo-container">
+            <h1 class="logo">Ec<span class="earth-icon">🌍</span>Trend</h1>
         </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">BROWSE</a></li>
+                <li><a href="startside.html">STARTSIDE</a></li>
+                <li><a href="search.html">SEARCH</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="cart.html">YOUR CART</a></li>
+            </ul>
+        </nav>
     </header>
-    <main></main>
-    <footer></footer>
+
+    <section class="hero">
+        <div class="video-container">
+            <div class="placeholder-video">
+                <p>Eco-friendly fashion for a sustainable future</p>
+                <button class="watch-btn">Watch Our Story</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="recommended">
+        <h2>RECOMMENDED</h2>
+        <div class="product-slider">
+            <button class="slider-arrow left-arrow">&lt;</button>
+            <div class="products-container">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="../images/product1.jpg" alt="Eco Black Dress">
+                        <button class="add-to-cart">🛒</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Eco Black</h3>
+                        <p>Dress - Recycled black</p>
+                        <p>Made from recycled materials, tear resistant</p>
+                        <p class="price">€89.99</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="../images/product2.jpg" alt="Ocean Blue">
+                    </div>
+                    <div class="product-info">
+                        <h3>Ocean Blue</h3>
+                        <p>Dress - Transparent</p>
+                        <p>Inspired by ocean waves, size: XS-XL</p>
+                        <p class="price">€75.50</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="../images/product3.jpg" alt="News Print">
+                    </div>
+                    <div class="product-info">
+                        <h3>News Print</h3>
+                        <p>Skirt - Recycled paper</p>
+                        <p>Made from recycled newspapers</p>
+                        <p class="price">€45.00</p>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-arrow right-arrow">&gt;</button>
+        </div>
+    </section>
+
+    <section class="questions">
+        <h2>Any questions?</h2>
+        <p>We're here to help you make sustainable fashion choices. Our products are carefully selected to ensure minimal environmental impact while maintaining high quality and trendy designs.</p>
+        <div class="contact-form">
+            <input type="email" placeholder="Your email">
+            <textarea placeholder="Your question"></textarea>
+            <button class="submit-btn">Send</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
+        <div class="social-icons">
+            <span class="icon">📱</span>
+            <span class="icon">👋</span>
+            <span class="icon">💬</span>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
