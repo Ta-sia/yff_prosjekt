@@ -158,7 +158,7 @@ header {
 
 .product-card {
     flex: 0 0 300px;
-    border: 1px solid #0036f7;
+    border: 1px solid #8ab146;
     border-radius: 5px;
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -269,7 +269,7 @@ header {
 
 .product-card {
     flex: 0 0 300px;
-    border: 1px solid #0036f7;
+    border: 1px solid #8ab146;
     border-radius: 5px;
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -414,5 +414,5 @@ footer {
 
 .page-content h1 {
     margin-bottom: 20px;
-    color: #00a8c8;
+    color: #8ab146;
 }
