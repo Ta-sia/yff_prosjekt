@@ -1,4 +1,4 @@
-/* Base Styles */
+/* Dette er for alt */
 * {
     margin: 0;
     padding: 0;
@@ -223,6 +223,58 @@ header {
 .price {
     font-weight: bold;
     color: #8ab146;
+}
+
+/* Bro, style for produkter */
+
+.product-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider-background {
+    position: absolute;
+    height: 150px;
+    background-color: #e0e0e0;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.slider-arrow {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #8ab146;
+    padding: 0 10px;
+    z-index: 2;
+}
+
+.products-container {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 20px 0;
+    max-width: calc(300px * 3 + 40px); /* width for tre order */
+    scroll-snap-type: x mandatory;
+}
+
+.product-card {
+    flex: 0 0 300px;
+    border: 1px solid #0036f7;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background-color: white;
+    scroll-snap-align: start;
 }
 
 /* Questions Section */

@@ -1,11 +1,11 @@
-# Простой Python файл для будущей интеграции
+# bibliotec
 from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__, 
             static_folder='static',
             template_folder='templates')
 
-# Заглушка для данных о продуктах (в будущем можно заменить на базу данных)
+# ETTERS SERVER KOBLING INFO SKAL VARE DER OM PRODUCTER
 products = [
     {
         "id": 1,
@@ -56,12 +56,12 @@ def about():
 def cart():
     return render_template('cart.html')
 
-# API для получения данных о продуктах
+# API for getting all products
 @app.route('/api/products')
 def get_products():
     return jsonify(products)
 
-# API для получения данных о конкретном продукте
+# API for getting a single product by ID
 @app.route('/api/products/<int:product_id>')
 def get_product(product_id):
     product = next((p for p in products if p["id"] == product_id), None)
@@ -69,13 +69,14 @@ def get_product(product_id):
         return jsonify(product)
     return jsonify({"error": "Product not found"}), 404
 
-# API для обработки формы обратной связи
+# API for adding a product to the cart (mockup)
 @app.route('/api/contact', methods=['POST'])
 def contact():
     data = request.json
-    # Здесь можно добавить код для сохранения данных или отправки email
-    print(f"Получено сообщение от {data.get('email')}: {data.get('message')}")
+    # Here you would typically process the data, e.g., save it to a database or send an email
+    print(f"For melding fra {data.get('email')}: {data.get('message')}")
     return jsonify({"success": True, "message": "Message received"})
 
+# SkVTVVMgSVMgTE9SRA==
 if __name__ == '__main__':
     app.run(debug=True)
