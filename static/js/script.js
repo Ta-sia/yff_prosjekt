@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.classList.add('video-overlay');
         videoContainer.prepend(overlay);
         
-        // Sjør video
+        // Kjør video
         function playVideo() {
             // HAr skal vi lage code for kjøring video, men for det trenger vi å lage video
             // For demonstration

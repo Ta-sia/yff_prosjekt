@@ -1,8 +1,8 @@
-Fra Taras
-Jeg har skrevet en grunnleggende stil for hovedsiden, men det er viktig å forstå at det jeg har skrevet ennå ikke er ferdig, fordi det må legges til en video og en funksjon for å vise videoen.
-Det må også legges til bilder og så videre.
+Halla!
 
-Jeg ba KI (kunstig intelligens) om å lage en enkel Python-kode for å starte koden med Flask.
-Jeg ba også KI om å legge inn en midlertidig løsning, siden vi ennå ikke har skikkelig informasjon om produktene eller en database.
+Jeg har ordnet json-fil og endret produktene som er manuelt lagt til. Nå er alt automatisk i forhold til json-filen.
+Jeg har fikset noen feil og endret browse.html og litt css til browse
 
-Forresten, finn ut hva en Base64-dekoder er! )
+CSS-en må fikses til browse.html
+
+Med veldig vennlig hilsen fra den hyggelige personen Aron

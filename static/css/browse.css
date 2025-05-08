@@ -1,0 +1,82 @@
+/* Dette er for alt */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #ebecec;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 15px;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
+.earth-icon {
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #00a8c8;
+}
+
+/* Products */
+.products-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.product-card {
+    flex: 0 0 300px;
+    border: 1px solid #8ab146;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background-color: white;
+}
+
+
+/* Footer */
+footer {
+    background-color: #ebecec;
+    padding: 20px;
+    text-align: center;
+}

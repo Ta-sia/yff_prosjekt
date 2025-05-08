@@ -1,48 +1,29 @@
 # bibliotec
 from flask import Flask, render_template, jsonify, request
+import json
+import os
 
 app = Flask(__name__, 
             static_folder='static',
             template_folder='templates')
 
-# ETTERS SERVER KOBLING INFO SKAL VARE DER OM PRODUCTER
-products = [
-    {
-        "id": 1,
-        "name": "Eco Black",
-        "category": "Dress",
-        "material": "Recycled black",
-        "description": "Made from recycled materials, tear resistant",
-        "price": 89.99,
-        "image": "product1.jpg"
-    },
-    {
-        "id": 2,
-        "name": "Ocean Blue",
-        "category": "Dress",
-        "material": "Transparent",
-        "description": "Inspired by ocean waves, size: XS-XL",
-        "price": 75.50,
-        "image": "product2.jpg"
-    },
-    {
-        "id": 3,
-        "name": "News Print",
-        "category": "Skirt",
-        "material": "Recycled paper",
-        "description": "Made from recycled newspapers",
-        "price": 45.00,
-        "image": "product3.jpg"
-    }
-]
+products_file = os.path.join(os.path.dirname(__file__), 'products.json')
+
+# Hent produkter fra JSON-fil
+def get_products():
+    with open(products_file, 'r') as file:
+        products = json.load(file)
+    return products
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    products = get_products()
+    return render_template('browse.html', products=products)
 
 @app.route('/startside')
 def startside():
-    return render_template('startside.html')
+    products = get_products()
+    return render_template('startside.html', products=products)
 
 @app.route('/search')
 def search():
@@ -55,27 +36,6 @@ def about():
 @app.route('/cart')
 def cart():
     return render_template('cart.html')
-
-# API for getting all products
-@app.route('/api/products')
-def get_products():
-    return jsonify(products)
-
-# API for getting a single product by ID
-@app.route('/api/products/<int:product_id>')
-def get_product(product_id):
-    product = next((p for p in products if p["id"] == product_id), None)
-    if product:
-        return jsonify(product)
-    return jsonify({"error": "Product not found"}), 404
-
-# API for adding a product to the cart (mockup)
-@app.route('/api/contact', methods=['POST'])
-def contact():
-    data = request.json
-    # Here you would typically process the data, e.g., save it to a database or send an email
-    print(f"For melding fra {data.get('email')}: {data.get('message')}")
-    return jsonify({"success": True, "message": "Message received"})
 
 # SkVTVVMgSVMgTE9SRA==
 if __name__ == '__main__':

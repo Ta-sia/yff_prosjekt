@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTrend - Startside</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>EcoTrend - Sustainable Fashion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Arial+Rounded+MT+Bold&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -23,15 +23,54 @@
         </nav>
     </header>
 
-    <main class="page-content">
-        <h1>Welcome to Startside</h1>
-        <p>This page is under construction.</p>
-    </main>
+    <section class="hero">
+        <div class="video-container">
+            <div class="placeholder-video">
+                <p>Eco-friendly fashion for a sustainable future</p>
+                <button class="watch-btn">Watch Our Story</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="recommended">
+        <h2>RECOMMENDED</h2>
+        <div class="product-slider">
+            <button class="slider-arrow left-arrow">&lt;</button>
+            <div class="slider-background"></div>
+            <div class="products-container">
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+                        <button class="add-to-cart">🛒</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.category + " - " + product.material }}</p>
+                        <p>{{ product.description }}</p>
+                        <p class="price">€{{ product.price }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="slider-arrow right-arrow">&gt;</button>
+        </div>
+    </section>
+
+    <section class="questions">
+        <h2>Any questions?</h2>
+        <p>We're here to help you make sustainable fashion choices. Our products are carefully selected to ensure minimal environmental impact while maintaining high quality and trendy designs.</p>
+        <div class="contact-form">
+            <input type="email" placeholder="Your email">
+            <textarea placeholder="Your question"></textarea>
+            <button class="submit-btn">Send</button>
+        </div>
+    </section>
 
     <footer>
         <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

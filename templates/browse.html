@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrend - Startside</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Arial+Rounded+MT+Bold&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1 class="logo">Ec<span class="earth-icon">💪🌍</span>Trend</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/" class="active">BROWSE</a></li>
+                <li><a href="/startside">STARTSIDE</a></li>
+                <li><a href="/search">SEARCH</a></li>
+                <li><a href="/about">ABOUT</a></li>
+                <li><a href="/cart">YOUR CART</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <h1>BROWSE OUR STORE</h1>
+        <div class="products-container">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+                    <button class="add-to-cart">🛒</button>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.material }}</p>
+                    <p>{{ product.description }}</p>
+                    <p class="price">€{{ product.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <section class="recommended">
+        
+    </section>
+
+    <footer>
+        <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
