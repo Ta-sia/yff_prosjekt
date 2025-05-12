@@ -1,3 +1,33 @@
+// Shopping Cart
+function addToCart(name, price) {
+        fetch('/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, price })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        });
+    }
+
+function removeFromCart(name) {
+            fetch('/cart/remove', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            });
+        }
+
 document.addEventListener('DOMContentLoaded', function() {
     // animasjon for hoved side
     const sections = document.querySelectorAll('section');
@@ -86,8 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         quantity: 1
                     };
                     
-                    addToCart(product);
-                    
                     this.textContent = '✓';
                     setTimeout(() => {
                         this.textContent = '🛒';
@@ -135,30 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         productsContainer.addEventListener('scroll', function() {
         });
-    }
-    
-    // Funksjon for å legge til produkt i handlekurv
-    function addToCart(product) {
-        let cart = JSON.parse(localStorage.getItem('ecoTrendCart')) || [];
-        
-        const existingProductIndex = cart.findIndex(item => item.name === product.name);
-        
-        if (existingProductIndex > -1) {
-            cart[existingProductIndex].quantity += 1;
-        } else {
-            cart.push(product);
-        }
-        
-        localStorage.setItem('ecoTrendCart', JSON.stringify(cart));
-        
-        updateCartCounter();
-    }
-    
-    function updateCartCounter() {
-        const cart = JSON.parse(localStorage.getItem('ecoTrendCart')) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        
-        console.log(`Varer i handlekurven din: ${totalItems}`);
     }
     
     // Tilbake melding

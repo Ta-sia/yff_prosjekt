@@ -14,7 +14,7 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="/">BROWSE</a></li>
+                <li><a href="/browse">BROWSE</a></li>
                 <li><a href="/startside">STARTSIDE</a></li>
                 <li><a href="/search">SEARCH</a></li>
                 <li><a href="/about">ABOUT</a></li>
@@ -25,13 +25,20 @@
 
     <main class="page-content">
         <h1>Your Shopping Cart</h1>
-        <p>This page is under construction.</p>
+    <ul>
+        {% for item in cart %}
+        <li>
+            {{ item.name }} - €{{ item.price }}
+            <button onclick="removeFromCart('{{ item.name }}')">Remove</button>
+        </li>
+        {% endfor %}
+    </ul>
     </main>
 
     <footer>
         <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

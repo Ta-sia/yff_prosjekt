@@ -14,7 +14,7 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="/" class="active">BROWSE</a></li>
+                <li><a href="/browse" class="active">BROWSE</a></li>
                 <li><a href="/startside">STARTSIDE</a></li>
                 <li><a href="/search">SEARCH</a></li>
                 <li><a href="/about">ABOUT</a></li>
@@ -30,7 +30,7 @@
             <div class="product-card">
                 <div class="product-image">
                     <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
-                    <button class="add-to-cart">🛒</button>
+                    <button class="add-to-cart" onclick="addToCart('{{ product.name }}', {{ product.price }})">🛒</button>
                 </div>
                 <div class="product-info">
                     <h3>{{ product.name }}</h3>
@@ -51,6 +51,6 @@
         <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
