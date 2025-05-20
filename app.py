@@ -1,5 +1,4 @@
-# bibliotec
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, jsonify
 import json
 import os
 
@@ -31,7 +30,9 @@ def browse():
 
 @app.route('/search')
 def search():
-    return render_template('search.html')
+    products = get_products()
+    query = request.args.get('q', '')
+    return render_template('search.html', products=products, query=query)
 
 @app.route('/about')
 def about():
@@ -39,7 +40,6 @@ def about():
 
 @app.route('/cart', methods=['GET', 'POST'])
 def cart():
-
     if 'cart' not in session:
         session['cart'] = []
 
@@ -47,7 +47,7 @@ def cart():
         product = request.json
         session['cart'].append(product)
         session.modified = True
-        return '', 204
+        return '', 204  # No content response for successful addition
 
     return render_template('cart.html', cart=session['cart'])
 
@@ -56,7 +56,26 @@ def remove_from_cart():
     product_name = request.json.get('name')
     session['cart'] = [item for item in session['cart'] if item['name'] != product_name]
     session.modified = True
-    return {'message': 'Product removed successfully'}
+    return jsonify({'message': 'Product removed successfully'})
+
+# API endpoint for search suggestions
+@app.route('/api/search', methods=['GET'])
+def api_search():
+    query = request.args.get('q', '').lower()
+    products = get_products()
+    
+    if not query:
+        return jsonify([])
+    
+    results = []
+    for product in products:
+        if (query in product['name'].lower() or 
+            query in product['category'].lower() or 
+            query in product['material'].lower() or 
+            query in product['description'].lower()):
+            results.append(product)
+    
+    return jsonify(results)
 
 # SkVTVVMgSVMgTE9SRA==
 if __name__ == '__main__':

@@ -3,14 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTrend - Startside</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse.css') }}">
+    <title>EcoTrend - Browse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&family=Arial+Rounded+MT+Bold&display=swap" rel="stylesheet">
+    <style>
+        .browse-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .browse-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-name {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        
+        .category-card:hover .category-overlay {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+        
+        .product-details {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .product-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-weight: bold;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 10px;
+        }
+        
+        .sale-price {
+            color: #ff4d4d;
+        }
+        
+        .add-to-cart-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <h1 class="logo">Ec<span class="earth-icon">💪🌍</span>Trend</h1>
+            <h1 class="logo">Ec<span class="earth-icon">🌍</span>Trend</h1>
         </div>
         <nav>
             <ul class="nav-links">
@@ -24,33 +197,206 @@
     </header>
 
     <main class="page-content">
-        <h1>BROWSE OUR STORE</h1>
-        <div class="products-container">
-            {% for product in products %}
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
-                    <button class="add-to-cart" onclick="addToCart('{{ product.name }}', {{ product.price }})">🛒</button>
+        <div class="browse-container">
+            <h1 class="browse-title">BROWSE OUR STORE</h1>
+            
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('Latest Drops')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Latest Drops</h2>
                 </div>
-                <div class="product-info">
-                    <h3>{{ product.name }}</h3>
-                    <p>{{ product.material }}</p>
-                    <p>{{ product.description }}</p>
-                    <p class="price">€{{ product.price }}</p>
+                <div class="category-card" onclick="filterByCategory('Trendiest')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Trendiest</h2>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Feminine')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Feminine</h2>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Masculine')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Masculine</h2>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Unisex')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Unisex</h2>
+                </div>
+                <div class="category-card" onclick="filterByCategory('Accessories')">
+                    <div class="category-overlay"></div>
+                    <h2 class="category-name">Accessories</h2>
                 </div>
             </div>
-            {% endfor %}
+            
+            <h2 class="section-title" id="current-category">LATEST DROPS</h2>
+            
+            <div class="products-grid" id="products-container">
+                <!-- Products will be loaded here -->
+            </div>
         </div>
     </main>
-
-    <section class="recommended">
-        
-    </section>
 
     <footer>
         <p>© Ec<span class="earth-icon">🌍</span>Trend.com</p>
     </footer>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Store products data
+        let allProducts = [];
+        let currentCategory = 'Latest Drops';
+        
+        // Fetch products when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // We'll use the products from the Flask app
+            allProducts = JSON.parse('{{ products|tojson|safe }}');
+            
+            // Add some sale items
+            addSaleItems();
+            
+            // Display products
+            filterByCategory(currentCategory);
+        });
+        
+        function addSaleItems() {
+            // Add sale property to some products
+            allProducts.forEach(product => {
+                // Randomly make some products on sale (for demo purposes)
+                if (Math.random() > 0.7) {
+                    product.onSale = true;
+                    product.originalPrice = product.price;
+                    product.price = (product.price * 0.8).toFixed(2); // 20% discount
+                }
+            });
+            
+            // Add some additional products with sales
+            allProducts.push(
+                {
+                    id: 101,
+                    name: "Dirty Black",
+                    category: "Dress",
+                    material: "Recycled black",
+                    description: "A groundbreaking alternative for modern fashion",
+                    price: 149,
+                    originalPrice: 199,
+                    onSale: true,
+                    image: "product1.jpg"
+                },
+                {
+                    id: 102,
+                    name: "Glass Bow",
+                    category: "Accessories",
+                    material: "Recycled glass",
+                    description: "Brand new unique accessory",
+                    price: 219,
+                    originalPrice: 299,
+                    onSale: true,
+                    image: "product2.jpg"
+                },
+                {
+                    id: 103,
+                    name: "Topp it off",
+                    category: "Top",
+                    material: "Organic cotton",
+                    description: "Multi-purpose clothing for all genders! Head-wear, apron, scarf and more!",
+                    price: 199,
+                    originalPrice: 249,
+                    onSale: true,
+                    image: "product3.jpg"
+                }
+            );
+        }
+        
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.getElementById('current-category').textContent = category.toUpperCase();
+            
+            // Filter products based on category
+            let filteredProducts;
+            
+            switch(category) {
+                case 'Latest Drops':
+                    // Show newest products (for demo, we'll just show the first few)
+                    filteredProducts = allProducts.slice(0, 6);
+                    break;
+                case 'Trendiest':
+                    // Show products with highest price (as a proxy for trendiness)
+                    filteredProducts = [...allProducts].sort((a, b) => b.price - a.price).slice(0, 6);
+                    break;
+                case 'Feminine':
+                    // Filter by categories typically associated with feminine clothing
+                    filteredProducts = allProducts.filter(p => 
+                        p.category === 'Dress' || p.category === 'Skirt' || p.category === 'Top');
+                    break;
+                case 'Masculine':
+                    // Filter by categories typically associated with masculine clothing
+                    filteredProducts = allProducts.filter(p => 
+                        p.category === 'Pants' || p.category === 'Jackettop');
+                    break;
+                case 'Unisex':
+                    // Show all clothing items
+                    filteredProducts = allProducts.filter(p => p.category !== 'Accessories' && p.category !== 'Bag');
+                    break;
+                case 'Accessories':
+                    // Show only accessories
+                    filteredProducts = allProducts.filter(p => p.category === 'Accessories' || p.category === 'Bag');
+                    break;
+                default:
+                    filteredProducts = allProducts;
+            }
+            
+            displayProducts(filteredProducts);
+        }
+        
+        function displayProducts(products) {
+            const container = document.getElementById('products-container');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p class="no-products">No products found in this category</p>';
+                return;
+            }
+            
+            let html = '';
+            products.forEach(product => {
+                html += `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="/static/images/${product.image}" alt="${product.name}" onerror="this.src='/static/images/placeholder.jpg'">
+                            ${product.onSale ? '<span class="sale-badge">SALE</span>' : ''}
+                            <button class="add-to-cart-btn" onclick="addToCart('${product.name}', ${product.price})">🛒</button>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">"${product.name}"</div>
+                            <div class="product-description">${product.description}</div>
+                            <div class="product-price">
+                                ${product.onSale ? 
+                                    `<span class="original-price">${product.originalPrice}kr</span>
+                                     <span class="sale-price">${product.price}kr</span>` : 
+                                    `${product.price}kr`}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function addToCart(name, price) {
+            fetch('/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, price })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`${name} added to cart!`);
+                }
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
+        }
+    </script>
 </body>
 </html>
