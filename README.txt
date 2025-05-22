@@ -1,1 +1,1 @@
-Hello, det er som, men' ja
+Fiksa og cleana litt opp

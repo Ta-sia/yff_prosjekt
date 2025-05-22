@@ -42,7 +42,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
-                        <button class="add-to-cart" onclick="addToCart('{{ product.name }}', {{ product.price }})">🛒</button>
+                        <button class="add-to-cart" onclick="addToCart('{{ product.name }}', '{{ product.price }}')">🛒</button>
                     </div>
                     <div class="product-info">
                         <h3>{{ product.name }}</h3>

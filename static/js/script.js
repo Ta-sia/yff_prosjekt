@@ -1,32 +1,32 @@
 // Shopping Cart
 function addToCart(name, price) {
-        fetch('/cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, price })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-        });
-    }
+    fetch('/cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, price })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    });
+}
 
 function removeFromCart(name) {
-            fetch('/cart/remove', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                location.reload();
-            });
-        }
+    fetch('/cart/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        location.reload();
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     // animasjon for hoved side
