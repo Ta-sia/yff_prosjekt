@@ -416,3 +416,31 @@ footer {
     margin-bottom: 20px;
     color: #8ab146;
 }
+
+/* About content */
+.about{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.about-content {
+    min-height: 20vh;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: white;
+}
+
+.about-content h1 {
+    margin-bottom: 20px;
+    color: #8ab146;
+}
+
+.about-content p {
+    max-width: 700px;
+    margin-bottom: 20px;
+}
