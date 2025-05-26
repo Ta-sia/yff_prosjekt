@@ -29,42 +29,37 @@ function removeFromCart(name) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // animasjon for hoved side
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
         section.classList.add('fade-in');
     });
-    
-    // vidIO
+
     const videoContainer = document.querySelector('.video-container');
     const watchBtn = document.querySelector('.watch-btn');
-    
+
     if (videoContainer && watchBtn) {
         const overlay = document.createElement('div');
         overlay.classList.add('video-overlay');
         videoContainer.prepend(overlay);
-        
-        // Kjør video
+
+        // Bare kjør video én gang
+        let videoStarted = false;
+
         function playVideo() {
-            // HAr skal vi lage code for kjøring video, men for det trenger vi å lage video
-            // For demonstration
-            const placeholderVideo = document.querySelector('.placeholder-video');
-            placeholderVideo.innerHTML = '<p>Videoen spilles av...</p>';
-            placeholderVideo.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-            placeholderVideo.style.padding = '20px';
-            placeholderVideo.style.color = 'white';
-            
-            // Sletut video overlay
+            if (videoStarted) return;
+            videoStarted = true;
+
+            const placeholder = document.querySelector('.placeholder-video');
+            placeholder.innerHTML = `
+                <video width="640" height="360" controls autoplay>
+                    <source src="../static/video/EcoTrend Webside Reklame.MOV" type="video/mp4">
+                    Nettleseren din støtter ikke HTML5 video.
+                </video>
+            `;
+
             overlay.remove();
         }
-        
-        // Kjør video på klikk
-        videoContainer.addEventListener('click', function(e) {
-            if (e.target !== watchBtn && !watchBtn.contains(e.target)) {
-                playVideo();
-            }
-        });
-        
+
         watchBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             playVideo();

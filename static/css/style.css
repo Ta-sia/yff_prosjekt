@@ -64,6 +64,12 @@ header {
     overflow: hidden;
 }
 
+video {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
 .video-container {
     width: 100%;
     height: 100%;
